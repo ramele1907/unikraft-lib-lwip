@@ -58,10 +58,10 @@ static int sock_fd_alloc(struct vfscore_fops *fops, int sock_fd)
 	}
 	file->vfscore_file.fops = fops;
 	file->sock_fd = sock_fd;
-	uk_printd(DLVL_EXTRA, NET_LIB_NAME":allocated socket %d (%x)\n",
-			file->vfscore_file.fd, file->sock_fd);
-	/* Storing the information within the vfs structure */
 	vfscore_install_fd(vfs_fd, &file->vfscore_file);
+	uk_printd(DLVL_EXTRA, NET_LIB_NAME":allocated socket %d (fd=%d)\n",
+			file->sock_fd, file->vfscore_file.fd);
+	/* Storing the information within the vfs structure */
 	ret = vfs_fd;
 EXIT:
 	return ret;
@@ -77,8 +77,8 @@ static int sock_net_close(struct vfscore_file *vfscore_file)
 	struct sock_net_file *file = NULL;
 	file = __containerof(vfscore_file, struct sock_net_file, vfscore_file);
 
-	uk_printd(DLVL_EXTRA, NET_LIB_NAME": close() %d (%x)\n",
-			file->vfscore_file.fd, file->sock_fd);
+	uk_printd(DLVL_EXTRA, NET_LIB_NAME": closed socket %d (fd=%d)\n",
+			file->sock_fd, file->vfscore_file.fd);
 
 	/* Close and release the lwip socket */
 	ret = lwip_close(file->sock_fd);
