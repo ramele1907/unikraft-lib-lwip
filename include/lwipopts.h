@@ -12,6 +12,8 @@
 #include <inttypes.h>
 #include <uk/config.h>
 
+#define LWIP_DHCP 1
+#define LWIP_SOCKET 1
 #define SO_REUSE 1
 
 /*
@@ -73,6 +75,7 @@ void sys_free(void *ptr);
 /*
  * Most features are selected by uk/config.h
  */
+#define LWIP_NETIF_STATUS_CALLBACK 1
 #define LWIP_NETIF_REMOVE_CALLBACK 1
 #define LWIP_TIMEVAL_PRIVATE 0
 
@@ -227,14 +230,14 @@ void sys_free(void *ptr);
 #define MEMP_DEBUG       LWIP_DBG_ON
 #endif /* LWIP_SYS_DEBUG */
 
-#ifdef LWIP_API_DEBUG
+#ifdef CONFIG_LWIP_API_DEBUG
 #define SOCKETS_DEBUG    LWIP_DBG_ON
 #define RAW_DEBUG        LWIP_DBG_ON
 #define API_MSG_DEBUG    LWIP_DBG_ON
 #define API_LIB_DEBUG    LWIP_DBG_ON
 #endif /* LWIP_API_DEBUG */
 
-#ifdef LWIP_SERVICE_DEBUG
+#ifdef CONFIG_LWIP_SERVICE_DEBUG
 #define ETHARP_DEBUG     LWIP_DBG_ON
 #define DNS_DEBUG        LWIP_DBG_ON
 #define AUTOIP_DEBUG     LWIP_DBG_ON
