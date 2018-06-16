@@ -1,13 +1,14 @@
 diff -urp lwip-2.0.3-orig/src/api/sockets.c src/api/sockets.c
 --- a/src/api/sockets.c	2018-03-20 13:07:37.161480805 +0100
 +++ b/src/api/sockets.c	2018-03-19 18:01:08.206420575 +0100
-@@ -1290,6 +1290,46 @@ lwip_writev(int s, const struct iovec *i
+@@ -1290,6 +1290,47 @@ lwip_writev(int s, const struct iovec *i
    return lwip_sendmsg(s, &msg, 0);
  }
  
 +int lwip_getsock_status(int fd)
 +{
 +  int flags = 0;
++#if 0
 +  struct lwip_sock *sock;
 +
 +  SYS_ARCH_DECL_PROTECT(lev);
@@ -42,7 +43,7 @@ diff -urp lwip-2.0.3-orig/src/api/sockets.c src/api/sockets.c
 +  } else {
 +    SYS_ARCH_UNPROTECT(lev);
 +  }
-+
++#endif
 +  return flags;
 +}
  /**
